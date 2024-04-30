@@ -61,6 +61,7 @@ export function bindFileSuiteToProject(project: FullProjectInternal, suite: Suit
     // Inherit properties from parent suites.
     let inheritedRetries: number | undefined;
     let inheritedTimeout: number | undefined;
+    let inheritedfailOnFlakyTests: boolean | undefined;
     test.annotations = [];
     for (let parentSuite: Suite | undefined = suite; parentSuite; parentSuite = parentSuite.parent) {
       if (parentSuite._staticAnnotations.length)
@@ -69,9 +70,12 @@ export function bindFileSuiteToProject(project: FullProjectInternal, suite: Suit
         inheritedRetries = parentSuite._retries;
       if (inheritedTimeout === undefined && parentSuite._timeout !== undefined)
         inheritedTimeout = parentSuite._timeout;
+      if (inheritedfailOnFlakyTests === undefined && parentSuite._failOnFlakyTests !== undefined)
+        inheritedfailOnFlakyTests = parentSuite._failOnFlakyTests;
     }
     test.retries = inheritedRetries ?? project.project.retries;
     test.timeout = inheritedTimeout ?? project.project.timeout;
+    test.failOnFlakyTests = inheritedfailOnFlakyTests ?? project.project.failOnFlakyTests;
     test.annotations.push(...test._staticAnnotations);
 
     // Skip annotations imply skipped expectedStatus.

@@ -455,6 +455,22 @@ export default defineConfig({
 });
 ```
 
+## property: TestConfig.failOnFlakyTests
+* since: v1.44
+- type: ?<[boolean]>
+
+Counts tests that initially fail but subsequently pass as failed. By default 'flaky' tests are considered as passing.
+
+**Usage**
+
+```js title="playwright.config.ts"
+import { defineConfig } from '@playwright/test';
+
+export default failOnFlakyTests({
+  failOnFlakyTests: true,
+});
+```
+
 ## property: TestConfig.shard
 * since: v1.10
 - type: ?<[null]|[Object]>

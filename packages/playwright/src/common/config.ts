@@ -176,6 +176,7 @@ export class FullProjectInternal {
       // project is top-level vs dependency. See collectProjectsAndTestFiles in loadUtils.
       repeatEach: takeFirst(projectConfig.repeatEach, config.repeatEach, 1),
       retries: takeFirst(configCLIOverrides.retries, projectConfig.retries, config.retries, 0),
+      failOnFlakyTests: takeFirst(configCLIOverrides.failOnFlakyTests, projectConfig.failOnFlakyTests, config.failOnFlakyTests, false),
       metadata: takeFirst(projectConfig.metadata, config.metadata, {}),
       name: takeFirst(projectConfig.name, config.name, ''),
       testDir,
@@ -187,6 +188,7 @@ export class FullProjectInternal {
       dependencies: projectConfig.dependencies || [],
       teardown: projectConfig.teardown,
     };
+
     this.fullyParallel = takeFirst(configCLIOverrides.fullyParallel, projectConfig.fullyParallel, config.fullyParallel, undefined);
     this.expect = takeFirst(projectConfig.expect, config.expect, {});
     if (this.expect.toHaveScreenshot?.stylePath) {

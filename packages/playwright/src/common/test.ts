@@ -47,6 +47,7 @@ export class Suite extends Base {
   _hooks: { type: 'beforeEach' | 'afterEach' | 'beforeAll' | 'afterAll', fn: Function, title: string, location: Location }[] = [];
   _timeout: number | undefined;
   _retries: number | undefined;
+  _failOnFlakyTests: boolean | undefined;
   // Annotations known statically before running the test, e.g. `test.describe.skip()` or `test.describe({ annotation }, body)`.
   _staticAnnotations: Annotation[] = [];
   // Explicitly declared tags that are not a part of the title.
@@ -220,6 +221,7 @@ export class Suite extends Base {
     suite._requireFile = data.requireFile;
     suite._timeout = data.timeout;
     suite._retries = data.retries;
+    suite._failOnFlakyTests = data.failOnFlakyTests;
     suite._staticAnnotations = data.staticAnnotations;
     suite._tags = data.tags;
     suite._modifiers = data.modifiers;
@@ -254,6 +256,7 @@ export class TestCase extends Base implements reporterTypes.TestCase {
   timeout = 0;
   annotations: Annotation[] = [];
   retries = 0;
+  failOnFlakyTests = false;
   repeatEachIndex = 0;
 
   _testType: TestTypeImpl;
@@ -286,7 +289,7 @@ export class TestCase extends Base implements reporterTypes.TestCase {
 
   ok(): boolean {
     const status = this.outcome();
-    return status === 'expected' || status === 'flaky' || status === 'skipped';
+    return status === 'expected' || (status === 'flaky' && !this.failOnFlakyTests) || status === 'skipped';
   }
 
   get tags(): string[] {
@@ -299,6 +302,7 @@ export class TestCase extends Base implements reporterTypes.TestCase {
       id: this.id,
       title: this.title,
       retries: this.retries,
+      failOnFlakyTests: this.failOnFlakyTests,
       timeout: this.timeout,
       expectedStatus: this.expectedStatus,
       location: this.location,
@@ -317,6 +321,7 @@ export class TestCase extends Base implements reporterTypes.TestCase {
     const test = new TestCase(data.title, () => {}, rootTestType, data.location);
     test.id = data.id;
     test.retries = data.retries;
+    test.failOnFlakyTests = data.failOnFlakyTests;
     test.timeout = data.timeout;
     test.expectedStatus = data.expectedStatus;
     test._only = data.only;

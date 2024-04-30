@@ -255,6 +255,12 @@ interface TestProject<TestArgs = {}, WorkerArgs = {}> {
   };
 
   /**
+   * Counts tests that initially fail but subsequently pass as failed. By default 'flaky' tests are considered as
+   * passing.
+   */
+  failOnFlakyTests?: boolean;
+
+  /**
    * Playwright Test runs tests in parallel. In order to achieve that, it runs several worker processes that run at the
    * same time. By default, **test files** are run in parallel. Tests in a single file are run in order, in the same
    * worker process.
@@ -645,6 +651,12 @@ export interface FullProject<TestArgs = {}, WorkerArgs = {}> {
   dependencies: Array<string>;
 
   /**
+   * See
+   * [testProject.failOnFlakyTests](https://playwright.dev/docs/api/class-testproject#test-project-fail-on-flaky-tests).
+   */
+  failOnFlakyTests: boolean;
+
+  /**
    * See [testProject.grep](https://playwright.dev/docs/api/class-testproject#test-project-grep).
    */
   grep: RegExp|Array<RegExp>;
@@ -1016,6 +1028,24 @@ interface TestConfig<TestArgs = {}, WorkerArgs = {}> {
       timeout?: number;
     };
   };
+
+  /**
+   * Counts tests that initially fail but subsequently pass as failed. By default 'flaky' tests are considered as
+   * passing.
+   *
+   * **Usage**
+   *
+   * ```js
+   * // playwright.config.ts
+   * import { defineConfig } from '@playwright/test';
+   *
+   * export default failOnFlakyTests({
+   *   failOnFlakyTests: true,
+   * });
+   * ```
+   *
+   */
+  failOnFlakyTests?: boolean;
 
   /**
    * Whether to exit with an error if any tests or groups are marked as

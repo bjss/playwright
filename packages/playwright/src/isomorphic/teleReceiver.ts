@@ -47,6 +47,7 @@ export type JsonProject = {
   outputDir: string;
   repeatEach: number;
   retries: number;
+  failOnFlakyTests: boolean;
   suites: JsonSuite[];
   teardown?: string;
   // This is relative to root dir.
@@ -316,6 +317,7 @@ export class TeleReporterReceiver {
       outputDir: this._absolutePath(project.outputDir),
       repeatEach: project.repeatEach,
       retries: project.retries,
+      failOnFlakyTests: project.failOnFlakyTests,
       testDir: this._absolutePath(project.testDir),
       testIgnore: parseRegexPatterns(project.testIgnore),
       testMatch: parseRegexPatterns(project.testMatch),

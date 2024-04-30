@@ -171,6 +171,7 @@ export class TeleReporterEmitter implements ReporterV2 {
       outputDir: this._relativePath(project.outputDir),
       repeatEach: project.repeatEach,
       retries: project.retries,
+      failOnFlakyTests: project.failOnFlakyTests,
       testDir: this._relativePath(project.testDir),
       testIgnore: serializeRegexPatterns(project.testIgnore),
       testMatch: serializeRegexPatterns(project.testMatch),

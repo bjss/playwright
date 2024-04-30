@@ -233,6 +233,12 @@ Use [`method: Test.describe.configure`] to change the number of retries for a sp
 
 Use [`property: TestConfig.retries`] to change this option for all projects.
 
+## property: TestProject.failOnFlakyTests
+* since: v1.44
+- type: ?<[boolean]>
+
+
+Counts tests that initially fail but subsequently pass as failed. By default 'flaky' tests are considered as passing.
 
 ## property: TestProject.teardown
 * since: v1.34

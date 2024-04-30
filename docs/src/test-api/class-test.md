@@ -521,6 +521,12 @@ Execution mode. Learn more about the execution modes [here](../test-parallel.md)
 
 The number of retries for each test.
 
+### option: Test.describe.configure.failOnFlakyTests
+* since: v1.44
+- `failOnFlakyTests` <[boolean]>
+
+Fails flaky tests.
+
 ### option: Test.describe.configure.timeout
 * since: v1.28
 - `timeout` <[int]>

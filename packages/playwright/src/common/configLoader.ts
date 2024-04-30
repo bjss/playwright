@@ -251,6 +251,11 @@ function validateProject(file: string, project: Project, title: string) {
       throw errorWithFile(file, `${title}.retries must be a non-negative number`);
   }
 
+  if ('failOnFlakyTests' in project && project.failOnFlakyTests !== undefined) {
+    if (typeof project.failOnFlakyTests !== 'boolean')
+      throw errorWithFile(file, `${title}.failOnFlakyTests must be a boolean`);
+  }
+
   if ('testDir' in project && project.testDir !== undefined) {
     if (typeof project.testDir !== 'string')
       throw errorWithFile(file, `${title}.testDir must be a string`);

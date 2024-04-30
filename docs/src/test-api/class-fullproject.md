@@ -58,6 +58,12 @@ See [`property: TestProject.repeatEach`].
 
 See [`property: TestProject.retries`].
 
+## property: FullProject.failOnFlakyTests
+* since: v1.44
+- type: <[boolean]>
+
+See [`property: TestProject.failOnFlakyTests`].
+
 ## property: FullProject.teardown
 * since: v1.34
 - type: ?<[string]>

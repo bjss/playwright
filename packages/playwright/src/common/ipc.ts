@@ -29,6 +29,7 @@ export type ConfigCLIOverrides = {
   quiet?: boolean;
   repeatEach?: number;
   retries?: number;
+  failOnFlakyTests?: boolean;
   reporter?: ReporterDescription[];
   additionalReporters?: ReporterDescription[];
   shard?: { current: number, total: number };
